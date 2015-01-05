@@ -51,15 +51,14 @@ $('.search-form form').submit(function(){
 			'dataProvider'=>$model->search(),
 			'filter'=>$model,
 			'columns'=>array(
-        		'PER_CORREL',
-		'USU_PASSWORD',
-		'USU_ESTADO',
-		'USU_ROLE',
-		'USU_MODIFIED',
-		'USU_CREATE',
-		/*
-		'USU_TIPO',
-		*/
+				'Rut',
+				'Cargo',
+				'Empresa',
+				'USU_ROLE',
+				'USU_ESTADO',
+				'USU_MODIFIED',
+				'USU_CREATE',
+				'USU_TIPO',
 				array(
 					'class'=>'bootstrap.widgets.BsButtonColumn',
 				),

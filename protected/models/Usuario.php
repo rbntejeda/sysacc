@@ -111,6 +111,20 @@ class Usuario extends CActiveRecord
 		));
 	}
 
+	public function getRut()
+	{
+		return ($per=Persona::model()->findByPk($this->PER_CORREL))?$per->PER_RUT:"";
+	}
+
+	public function getCargo()
+	{
+		return ($per=Persona::model()->findByPk($this->PER_CORREL))?$per->PER_RUT:"";
+	}
+
+	public function getEmpresa()
+	{
+		return ($per=Persona::model()->findByPk($this->PER_CORREL))?$per->PER_RUT:"";
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
