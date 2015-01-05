@@ -1,6 +1,6 @@
 <?php
 
-class UsuarioController extends Controller
+class EmpresaController extends Controller
 {
 	/**
 	* @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,11 +28,11 @@ class UsuarioController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','login'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','logout'),
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -44,38 +44,7 @@ class UsuarioController extends Controller
 			),
 		);
 	}
-	public function actionLogin()
-	{
-		$model=new LoginForm;
 
-		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-
-		// collect user input data
-		if(isset($_POST['LoginForm']))
-		{
-			$model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
-		}
-		// display the login form
-		$this->layout="loginLayout";
-		$this->render('login',array('model'=>$model));
-	}
-
-	/**
-	 * Logs out the current user and redirect to homepage.
-	 */
-	public function actionLogout()
-	{
-		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->homeUrl);
-	}
 	/**
 	* Displays a particular model.
 	* @param integer $id the ID of the model to be displayed
@@ -93,19 +62,17 @@ class UsuarioController extends Controller
 	*/
 	public function actionCreate()
 	{
-		$model=new Usuario;
+		$model=new Empresa;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Usuario']))
+		if(isset($_POST['Empresa']))
 		{
-			$model->attributes=$_POST['Usuario'];
-			$model->USU_PASSWORD=md5($model->USU_PASSWORD);
+			$model->attributes=$_POST['Empresa'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->PER_CORREL));
+				$this->redirect(array('view','id'=>$model->EMP_CORREL));
 		}
-		$model->USU_PASSWORD='';
 
 		$this->render('create',array(
 		'model'=>$model,
@@ -124,11 +91,11 @@ class UsuarioController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Usuario']))
+		if(isset($_POST['Empresa']))
 		{
-			$model->attributes=$_POST['Usuario'];
+			$model->attributes=$_POST['Empresa'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->PER_CORREL));
+				$this->redirect(array('view','id'=>$model->EMP_CORREL));
 		}
 
 		$this->render('update',array(
@@ -161,7 +128,7 @@ class UsuarioController extends Controller
 	*/
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Usuario');
+		$dataProvider=new CActiveDataProvider('Empresa');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -172,10 +139,10 @@ class UsuarioController extends Controller
 	*/
 	public function actionAdmin()
 	{
-		$model=new Usuario('search');
+		$model=new Empresa('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Usuario']))
-			$model->attributes=$_GET['Usuario'];
+		if(isset($_GET['Empresa']))
+			$model->attributes=$_GET['Empresa'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -186,12 +153,12 @@ class UsuarioController extends Controller
 	* Returns the data model based on the primary key given in the GET variable.
 	* If the data model is not found, an HTTP exception will be raised.
 	* @param integer $id the ID of the model to be loaded
-	* @return Usuario the loaded model
+	* @return Empresa the loaded model
 	* @throws CHttpException
 	*/
 	public function loadModel($id)
 	{
-		$model=Usuario::model()->findByPk($id);
+		$model=Empresa::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -199,11 +166,11 @@ class UsuarioController extends Controller
 
 	/**
 	* Performs the AJAX validation.
-	* @param Usuario $model the model to be validated
+	* @param Empresa $model the model to be validated
 	*/
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='usuario-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='empresa-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

@@ -13,8 +13,8 @@
     <?php echo $form->textFieldControlGroup($model,'USU_PASSWORD',array('maxlength'=>200)); ?>
     <?php echo $form->textFieldControlGroup($model,'USU_ESTADO',array('maxlength'=>9)); ?>
     <?php echo $form->textFieldControlGroup($model,'USU_ROLE',array('maxlength'=>11)); ?>
-    <?php echo $form->textFieldControlGroup($model,'USU_END'); ?>
-    <?php echo $form->textFieldControlGroup($model,'USU_NEW'); ?>
+    <?php echo $form->textFieldControlGroup($model,'USU_MODIFIED'); ?>
+    <?php echo $form->textFieldControlGroup($model,'USU_CREATE'); ?>
     <?php echo $form->textFieldControlGroup($model,'USU_TIPO',array('maxlength'=>11)); ?>
 
     <div class="form-actions">

@@ -13,6 +13,10 @@
 	<?php echo CHtml::encode($data->CAR_CORREL); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('EMP_CORREL')); ?>:</b>
+	<?php echo CHtml::encode($data->EMP_CORREL); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('PER_RUT')); ?>:</b>
 	<?php echo CHtml::encode($data->PER_RUT); ?>
 	<br />
@@ -29,11 +33,11 @@
 	<?php echo CHtml::encode($data->PER_MATERNO); ?>
 	<br />
 
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('PER_EMAIL')); ?>:</b>
 	<?php echo CHtml::encode($data->PER_EMAIL); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('PER_TELEFONO')); ?>:</b>
 	<?php echo CHtml::encode($data->PER_TELEFONO); ?>
 	<br />

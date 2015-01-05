@@ -21,12 +21,12 @@
 	<?php echo CHtml::encode($data->USU_ROLE); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('USU_END')); ?>:</b>
-	<?php echo CHtml::encode($data->USU_END); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('USU_MODIFIED')); ?>:</b>
+	<?php echo CHtml::encode($data->USU_MODIFIED); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('USU_NEW')); ?>:</b>
-	<?php echo CHtml::encode($data->USU_NEW); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('USU_CREATE')); ?>:</b>
+	<?php echo CHtml::encode($data->USU_CREATE); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('USU_TIPO')); ?>:</b>

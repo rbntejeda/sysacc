@@ -12,6 +12,7 @@ return array(
     'language'=>'es',
 	'sourceLanguage' => 'es',
     'charset'=>'utf-8',
+
     //'theme'=>'blackboot',
    	//'theme'=>'classic',
 	// preloading 'log' component
@@ -49,6 +50,7 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+			'loginUrl'=>array('usuario/login'),
 		),
 		// uncomment the following to enable URLs in path-format
 		

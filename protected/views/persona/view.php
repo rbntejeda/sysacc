@@ -28,6 +28,7 @@ $this->menu=array(
 	'attributes'=>array(
 		'PER_CORREL',
 		'CAR_CORREL',
+		'EMP_CORREL',
 		'PER_RUT',
 		'PER_NOMBRE',
 		'PER_PATERNO',

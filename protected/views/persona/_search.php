@@ -11,6 +11,7 @@
 
     <?php echo $form->textFieldControlGroup($model,'PER_CORREL',array('maxlength'=>10)); ?>
     <?php echo $form->textFieldControlGroup($model,'CAR_CORREL',array('maxlength'=>10)); ?>
+    <?php echo $form->textFieldControlGroup($model,'EMP_CORREL',array('maxlength'=>10)); ?>
     <?php echo $form->textFieldControlGroup($model,'PER_RUT',array('maxlength'=>12)); ?>
     <?php echo $form->textFieldControlGroup($model,'PER_NOMBRE',array('maxlength'=>50)); ?>
     <?php echo $form->textFieldControlGroup($model,'PER_PATERNO',array('maxlength'=>50)); ?>

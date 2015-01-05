@@ -6,15 +6,14 @@
 <?php
 $this->breadcrumbs=array(
 	'Usuarios'=>array('index'),
-	'Create',
+	'Crear',
 );
 
 $this->menu=array(
-    array('icon' => 'glyphicon glyphicon-list','label'=>'List Usuario', 'url'=>array('index')),
-	array('icon' => 'glyphicon glyphicon-tasks','label'=>'Manage Usuario', 'url'=>array('admin')),
+	array('icon' => 'glyphicon glyphicon-tasks','label'=>'Administrar Usuarios', 'url'=>array('admin')),
 );
 ?>
 
-<?php echo BsHtml::pageHeader('Create','Usuario') ?>
+<?php echo BsHtml::pageHeader('Crear','Usuario') ?>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

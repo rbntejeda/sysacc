@@ -55,8 +55,8 @@ $('.search-form form').submit(function(){
 		'USU_PASSWORD',
 		'USU_ESTADO',
 		'USU_ROLE',
-		'USU_END',
-		'USU_NEW',
+		'USU_MODIFIED',
+		'USU_CREATE',
 		/*
 		'USU_TIPO',
 		*/
