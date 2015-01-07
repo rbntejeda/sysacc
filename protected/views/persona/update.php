@@ -6,15 +6,13 @@
 <?php
 $this->breadcrumbs=array(
 	'Personas'=>array('index'),
-	$model->PER_CORREL=>array('view','id'=>$model->PER_CORREL),
-	'Update',
+	'Actuaizar',
 );
 
 $this->menu=array(
-    array('icon' => 'glyphicon glyphicon-list','label'=>'List Persona', 'url'=>array('index')),
-	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Create Persona', 'url'=>array('create')),
-    array('icon' => 'glyphicon glyphicon-list-alt','label'=>'View Persona', 'url'=>array('view', 'id'=>$model->PER_CORREL)),
-    array('icon' => 'glyphicon glyphicon-tasks','label'=>'Manage Persona', 'url'=>array('admin')),
+	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Agregar Persona', 'url'=>array('create')),
+    array('icon' => 'glyphicon glyphicon-list-alt','label'=>'Ver Persona', 'url'=>array('view', 'id'=>$model->PER_CORREL)),
+    array('icon' => 'glyphicon glyphicon-tasks','label'=>'Administrar', 'url'=>array('admin')),
 );
 ?>
 

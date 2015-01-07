@@ -117,16 +117,38 @@
 					'type' => 'navbar',
 					'activateParents' => true,
 					'items' => array(
-						array('label' => 'Personas','url' => array('/Persona/admin'),'visible' => !Yii::app()->user->isGuest),
-						array('label' => 'Usuarios','url' => array('/Usuario/admin'),'visible' => !Yii::app()->user->isGuest),
+						array('label' => 'Empresa','url' => array('/Empresa/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+						array('label' => 'Personas','url' => array('/Persona/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+						array('label' => 'Usuarios','url' => array('/Usuario/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
 						array('label' => 'Login','url' => array('/site/login'),'pull' => BsHtml::NAVBAR_NAV_PULL_RIGHT,'visible' => Yii::app()->user->isGuest),
-						array('label' => 'Logout (' . Yii::app()->user->name . ')','pull' => BsHtml::NAVBAR_NAV_PULL_RIGHT,'url' => array('/site/logout'),'visible' => !Yii::app()->user->isGuest)
 						),
 					'htmlOptions' => array(
 										//'pull' => BsHtml::NAVBAR_NAV_PULL_RIGHT
 					)
-				)
+				),
 
+				array(
+					'class' => 'bootstrap.widgets.BsNav',
+					'type' => 'navbar',
+					'activateParents' => true,
+					'items' => array(
+						array(
+							'label' => 'Bienvenido '.Yii::app()->user->nombre,
+							'url' => array(
+								'/site/index'
+							),
+							'items' => array(
+
+								array('label' => 'Cambiar Contraseña','url' => array('/site/logout'),'visible' => !Yii::app()->user->isGuest),
+								array('label' => 'Cerrar Sesión','url' => array('/site/logout'),'visible' => !Yii::app()->user->isGuest)
+						
+							)
+						)
+					),
+					'htmlOptions' => array(
+						'pull'=> BsHtml::NAVBAR_NAV_PULL_RIGHT
+					),
+				),
 			)
 ));
 ?>
@@ -144,12 +166,15 @@
 			'homeLink' => BsHtml::openTag('li') . BsHtml::icon(BsHtml::GLYPHICON_HOME) . BsHtml::closeTag('li')
 		));
 	?><!-- breadcrumbs -->
-	<?php echo $content; ?>
+	<div class="row">
+		<?php echo $content; ?>
+	</div>
+		
 
 	</div><!--/.fluid-container-->
 	<div class="clear"></div>
 	<p class="text-center">
-			Copyright &copy; <?php echo date('Y'); ?> para Corporporación de la Madera.<br/>
+			Copyright &copy; <?php echo date('Y'); ?> para la Corporporación de la Madera.<br/>
 			Todos los Derechos Reservados.<br/>
 	</p>
 	

@@ -39,6 +39,8 @@ class Persona extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('PER_RUT, PER_NOMBRE, PER_PATERNO, PER_MATERNO, EMP_CORREL', 'required'),
+			array('PER_EMAIL', 'email','message'=>"El email ingresado no es correcto."),
+			array('PER_RUT', 'unique','message'=>'Este rut ya existe.'), 
 			array('CAR_CORREL, EMP_CORREL', 'length', 'max'=>10),
 			array('PER_RUT', 'length', 'max'=>12),
 			array('PER_NOMBRE, PER_PATERNO, PER_MATERNO, PER_TELEFONO', 'length', 'max'=>50),
@@ -118,7 +120,21 @@ class Persona extends CActiveRecord
 	}
 	public function getNombrecompleto()
 	{
+		return $this->PER_NOMBRE.' '.$this->PER_PATERNO.' '.$this->PER_MATERNO;
+	}
+
+	public function getnombreRut()
+	{
 		return $this->PER_RUT.' '.$this->PER_NOMBRE.' '.$this->PER_PATERNO.' '.$this->PER_MATERNO;
+	}
+
+	public function getEMP_NOMBRE(){
+		return ($per=Empresa::model()->findByPk($this->EMP_CORREL))?$per->EMP_NOMBRE:"";
+	}
+
+	public function getCAR_NOMBRE()
+	{
+		return ($per=Cargo::model()->findByPk($this->CAR_CORREL))?$per->CAR_NOMBRE:"";
 	}
 	/**
 	 * Returns the static model of the specified AR class.

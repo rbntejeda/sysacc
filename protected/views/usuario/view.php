@@ -32,6 +32,5 @@ $this->menu=array(
 		'USU_ROLE',
 		'USU_MODIFIED',
 		'USU_CREATE',
-		'USU_TIPO',
 	),
 )); ?>

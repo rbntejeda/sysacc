@@ -24,8 +24,8 @@
     <?php echo $form->textFieldControlGroup($model,'PER_NOMBRE',array('maxlength'=>50)); ?>
     <?php echo $form->textFieldControlGroup($model,'PER_PATERNO',array('maxlength'=>50)); ?>
     <?php echo $form->textFieldControlGroup($model,'PER_MATERNO',array('maxlength'=>50)); ?>
-    <?php echo $form->dropDownListControlGroup($model,'CAR_CORREL',CHtml::listData(Cargo::model()->findAll(), 'CAR_CORREL', 'CAR_NOMBRE'),array ('prompt'=>'Seleccione un cargo'));?>
     <?php echo $form->dropDownListControlGroup($model,'EMP_CORREL',CHtml::listData(Empresa::model()->findAll(), 'EMP_CORREL', 'EMP_NOMBRE'),array ('prompt'=>'Seleccione una empresa'));?>
+    <?php echo $form->dropDownListControlGroup($model,'CAR_CORREL',CHtml::listData(Cargo::model()->findAll(), 'CAR_CORREL', 'CAR_NOMBRE'),array ('prompt'=>'Seleccione un cargo'));?>
     <?php echo $form->emailFieldControlGroup($model,'PER_EMAIL',array('maxlength'=>200)); ?>
     <?php echo $form->textFieldControlGroup($model,'PER_TELEFONO',array('maxlength'=>50)); ?>
     <?php echo $form->textFieldControlGroup($model,'PER_DIRECCION',array('maxlength'=>300)); ?>

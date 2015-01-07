@@ -1,76 +1,81 @@
 <?php
 /* @var $this PersonaController */
 /* @var $model Persona */
-
+$cs = Yii::app()->clientScript;
+$baseUrl = Yii::app()->request->baseUrl;
+$cs->registerScriptFile($baseUrl . '/js/jquery.dataTables.min.js', CClientScript::POS_END);
+$cs->registerScriptFile($baseUrl . '/js/dataTables.bootstrap.js', CClientScript::POS_END);
+$cs->registerScript('tablas',"$(document).ready(function(){
+	$('#table-usuarios').dataTable({".'
+        "language": {
+            "lengthMenu": "Ver _MENU_ registros por pagina.",
+            "zeroRecords": "No existes registros.",
+            "info": "Mostrar pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles.",
+		    "infoFiltered":   "(filtrado por _MAX_ entradas en total.)",
+            "search":         "Buscar :",
+            "paginate": {
+		        "first":      "Primera",
+		        "last":       "Ultima",
+		        "next":       "Siguiente",
+		        "previous":   "Anterior"
+		    },
+        }
+	});
+});');
+$cs->registerCss("Search-derecha","#table-usuarios_filter {float: right;}");
 
 $this->breadcrumbs=array(
-	'Personas'=>array('index'),
-	'Manage',
+	'Personas'=>array('admin'),
+	'Administrar',
 );
 
 $this->menu=array(
-	array('icon' => 'glyphicon glyphicon-list','label'=>'List Persona', 'url'=>array('index')),
-	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Create Persona', 'url'=>array('create')),
+	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Crear Persona', 'url'=>array('create')),
 );
+echo BsHtml::pageHeader('Administrar','Personas') ?>
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#persona-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
-?>
-
-<?php echo BsHtml::pageHeader('Manage','Personas') ?>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title"><?php echo BsHtml::button('Advanced search',array('class' =>'search-button', 'icon' => BsHtml::GLYPHICON_SEARCH,'color' => BsHtml::BUTTON_COLOR_PRIMARY), '#'); ?></h3>
-    </div>
-    <div class="panel-body">
-        <p>
-            You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
-                &lt;&gt;</b>
-            or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-        </p>
-
-        <div class="search-form" style="display:none">
-            <?php $this->renderPartial('_search',array(
-                'model'=>$model,
-            )); ?>
-        </div>
-        <!-- search-form -->
-
-        <?php $this->widget('bootstrap.widgets.BsGridView',array(
-			'id'=>'persona-grid',
-			'dataProvider'=>$model->search(),
-			'filter'=>$model,
-			'columns'=>array(
-        		'PER_CORREL',
-		'CAR_CORREL',
-		'EMP_CORREL',
-		'PER_RUT',
-		'PER_NOMBRE',
-		'PER_PATERNO',
-		/*
-		'PER_MATERNO',
-		'PER_EMAIL',
-		'PER_TELEFONO',
-		'PER_DIRECCION',
-		*/
-				array(
-					'class'=>'bootstrap.widgets.BsButtonColumn',
-				),
-			),
-        )); ?>
-    </div>
-</div>
-
+<table class="table table-striped" id="table-usuarios">
+	<thead>
+		<tr>
+			<th>RUT</th>
+			<th>Nombre</th>
+			<th>Cargo</th>
+			<th>Empresa</th>
+			<th>Email</th>
+			<th>Telefono</th>
+			<th>Opciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($model as $usu): ?>
+			<tr>
+				<td><?php echo $usu->PER_RUT ?></td>
+				<td><?php echo $usu->nombreCompleto ?></td>
+				<td><?php echo $usu->CAR_NOMBRE ?></td>
+				<td><?php echo $usu->EMP_NOMBRE ?></td>
+				<td><?php echo $usu->PER_EMAIL ?></td>
+				<td><?php echo $usu->PER_TELEFONO ?></td>
+				<td>
+				  <center>
+					<div class="btn-group">
+					  <div class="input-group">
+						<button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+						  <span class="glyphicon glyphicon-cog"></span>
+						</button>
+						<ul class="dropdown-menu pull-right">
+							<li><a href="<?php echo Yii::app()->createUrl("Persona/update/$usu->PER_CORREL"); ?>">Editar Usuario</a></li>
+							  <!--trigger Modal-->
+						  	<li data-toggle="modal" data-target="#questionDelete<?php echo $usu->PER_CORREL?>"><a>Eliminar Usuario</a></li>
+						</ul>
+					  </div> 
+					</div>
+				  </center>
+				</td>
+			</tr>
+		<?php endforeach ?>
+	</tbody>
+</table>
 
 
 

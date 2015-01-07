@@ -19,4 +19,5 @@ $this->menu=array(
 ?>
 
 <?php echo BsHtml::pageHeader('Update','Usuario '.$model->PER_CORREL) ?>
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,
+		'per'=>$per)); ?>

@@ -29,9 +29,6 @@
 	<?php echo CHtml::encode($data->USU_CREATE); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('USU_TIPO')); ?>:</b>
-	<?php echo CHtml::encode($data->USU_TIPO); ?>
-	<br />
 
 
 </div>

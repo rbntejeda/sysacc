@@ -139,10 +139,7 @@ class PersonaController extends Controller
 	*/
 	public function actionAdmin()
 	{
-		$model=new Persona('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Persona']))
-			$model->attributes=$_GET['Persona'];
+		$model=Persona::model()->findAll();
 
 		$this->render('admin',array(
 			'model'=>$model,

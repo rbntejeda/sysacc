@@ -5,16 +5,15 @@
 
 <?php
 $this->breadcrumbs=array(
-	'Personas'=>array('index'),
-	'Create',
+	'Personas'=>array('admin'),
+	'Agregar',
 );
 
 $this->menu=array(
-    array('icon' => 'glyphicon glyphicon-list','label'=>'List Persona', 'url'=>array('index')),
-	array('icon' => 'glyphicon glyphicon-tasks','label'=>'Manage Persona', 'url'=>array('admin')),
+	array('icon' => 'glyphicon glyphicon-tasks','label'=>'Administrar', 'url'=>array('admin')),
 );
 ?>
 
-<?php echo BsHtml::pageHeader('Create','Persona') ?>
+<?php echo BsHtml::pageHeader('Agregar','Persona') ?>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

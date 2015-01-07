@@ -7,7 +7,7 @@ class UsuarioController extends Controller
 	* using two-column layout. See 'protected/views/layouts/column2.php'.
 	*/
 	public $layout='//layouts/column2';
-
+	public $defaultAction='admin';
 	/**
 	* @return array action filters
 	*/
@@ -93,15 +93,15 @@ class UsuarioController extends Controller
 	*/
 	public function actionCreate()
 	{
-		$model=new Usuario;
-
+		$model=new Usuario('Create');
+		$per=Persona::model()->findAll("NOT EXISTS(SELECT * FROM USUARIO WHERE t.PER_CORREL=USUARIO.PER_CORREL)");
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Usuario']))
 		{
 			$model->attributes=$_POST['Usuario'];
 			$model->USU_PASSWORD=md5($model->USU_PASSWORD);
+			$model->password=md5($model->password);
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->PER_CORREL));
 		}
@@ -109,6 +109,7 @@ class UsuarioController extends Controller
 
 		$this->render('create',array(
 		'model'=>$model,
+		'per'=>$per
 		));
 	}
 
@@ -120,7 +121,8 @@ class UsuarioController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		$model->scenario="update";
+		$per=Persona::model()->findAll("PER_CORREL=$id");
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -130,9 +132,10 @@ class UsuarioController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->PER_CORREL));
 		}
-
+		$model->USU_PASSWORD="";
 		$this->render('update',array(
 			'model'=>$model,
+			'per'=>$per
 		));
 	}
 
@@ -161,10 +164,7 @@ class UsuarioController extends Controller
 	*/
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Usuario');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+		$this->actionAdmin();
 	}
 
 	/**
@@ -172,8 +172,7 @@ class UsuarioController extends Controller
 	*/
 	public function actionAdmin()
 	{
-		$model=new Usuario('search');
-		$model->unsetAttributes();  // clear any default values
+		$model=Usuario::model()->findAll();
 		if(isset($_GET['Usuario']))
 			$model->attributes=$_GET['Usuario'];
 

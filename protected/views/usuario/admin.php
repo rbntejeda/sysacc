@@ -1,59 +1,97 @@
 <?php
 /* @var $this UsuarioController */
 /* @var $model Usuario */
-
+$cs        = Yii::app()->clientScript;
+$baseUrl = Yii::app()->request->baseUrl;
+$cs->registerScriptFile($baseUrl . '/js/jquery.dataTables.min.js', CClientScript::POS_END);
+$cs->registerScriptFile($baseUrl . '/js/dataTables.bootstrap.js', CClientScript::POS_END);
+$cs->registerScript('tablas',"$(document).ready(function(){
+	$('#table-usuarios').dataTable({".'
+        "language": {
+            "lengthMenu": "Ver _MENU_ registros por pagina.",
+            "zeroRecords": "No existes registros.",
+            "info": "Mostrar pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles.",
+		    "infoFiltered":   "(filtrado por _MAX_ entradas en total.)",
+            "search":         "Buscar:",
+            "paginate": {
+		        "first":      "Primera",
+		        "last":       "Ultima",
+		        "next":       "Siguiente",
+		        "previous":   "Anterior"
+		    },
+        }
+	});
+});');
+$cs->registerCss("Search-derecha","#table-usuarios_filter {float: right;}");
+	
 
 $this->breadcrumbs=array(
 	'Usuarios'=>array('index'),
-	'Manage',
+	'Administrar',
 );
 
 $this->menu=array(
-	array('icon' => 'glyphicon glyphicon-list','label'=>'List Usuario', 'url'=>array('index')),
-	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Create Usuario', 'url'=>array('create')),
+	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Crear Usuario', 'url'=>array('create')),
 );
 
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#usuario-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
+<?php echo BsHtml::pageHeader('Administración','Usuarios') ?>
+	<table class="table table-striped" id="table-usuarios">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>RUT</th>
+				<th>Estado</th>
+				<th>Creado</th>
+				<th>Modificado</th>
+				<th>Cargo</th>
+				<th>Empresa</th>
+				<th>Rol</th>
+				<th>Opciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($model as $usu): ?>
+				<tr>
+					<td><?php echo $usu->PER_NOMBRE ?></td>
+					<td><?php echo $usu->PER_RUT ?></td>
+					<td><?php echo $usu->USU_ESTADO ?></td>
+					<td><?php echo $usu->USU_CREATE ?></td>
+					<td><?php echo $usu->USU_MODIFIED ?></td>
+					<td><?php echo $usu->PER_CARGO ?></td>
+					<td><?php echo $usu->PER_EMPRESA ?></td>
+					<td><?php echo $usu->USU_ROLE ?></td>
+					<td>
+					  <center>
+						<div class="btn-group">
+						  <div class="input-group">
+							<button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+							  <span class="glyphicon glyphicon-cog"></span>
+							</button>
+							<ul class="dropdown-menu pull-right">
+								<li><a href="<?php echo Yii::app()->createUrl("Usuario/update/$usu->PER_CORREL"); ?>">Editar Usuario</a></li>
+								  <!--trigger Modal-->
+							  	<li data-toggle="modal" data-target="#questionDelete<?php echo $usu->PER_CORREL?>"><a>Eliminar Usuario</a></li>
+							</ul>
+						  </div> 
+						</div>
+					  </center>
+					</td>
+				</tr>
+			<?php endforeach ?>
+		</tbody>
+	</table>
+		<!-- search-form -->
 
-<?php echo BsHtml::pageHeader('Manage','Usuarios') ?>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title"><?php echo BsHtml::button('Advanced search',array('class' =>'search-button', 'icon' => BsHtml::GLYPHICON_SEARCH,'color' => BsHtml::BUTTON_COLOR_PRIMARY), '#'); ?></h3>
-    </div>
-    <div class="panel-body">
-        <p>
-            You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
-                &lt;&gt;</b>
-            or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-        </p>
-
-        <div class="search-form" style="display:none">
-            <?php $this->renderPartial('_search',array(
-                'model'=>$model,
-            )); ?>
-        </div>
-        <!-- search-form -->
-
-        <?php $this->widget('bootstrap.widgets.BsGridView',array(
+		<?php /*$this->widget('bootstrap.widgets.BsGridView',array(
 			'id'=>'usuario-grid',
 			'dataProvider'=>$model->search(),
 			'filter'=>$model,
 			'columns'=>array(
 				'Rut',
 				'Cargo',
-				'Empresa',
+				'Empresa'
 				'USU_ROLE',
 				'USU_ESTADO',
 				'USU_MODIFIED',
@@ -63,9 +101,7 @@ $('.search-form form').submit(function(){
 					'class'=>'bootstrap.widgets.BsButtonColumn',
 				),
 			),
-        )); ?>
-    </div>
-</div>
+		)); */?>
 
 
 
