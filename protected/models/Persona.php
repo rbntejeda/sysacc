@@ -61,7 +61,6 @@ class Persona extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'eMPCORREL' => array(self::BELONGS_TO, 'Empresa', 'EMP_CORREL'),
-			'cARCORREL' => array(self::BELONGS_TO, 'Cargo', 'CAR_CORREL'),
 			'usuario' => array(self::HAS_ONE, 'Usuario', 'PER_CORREL'),
 		);
 	}
@@ -75,6 +74,7 @@ class Persona extends CActiveRecord
 			'PER_CORREL' => 'ID',
 			'CAR_CORREL' => 'Cargo',
 			'EMP_CORREL' => 'Empresa',
+			'EMP_NOMBRE' =>'Empresa',
 			'PER_RUT' => 'Rut',
 			'PER_NOMBRE' => 'Nombres',
 			'PER_PATERNO' => 'Apellido Paterno',
@@ -134,7 +134,16 @@ class Persona extends CActiveRecord
 
 	public function getCAR_NOMBRE()
 	{
-		return ($per=Cargo::model()->findByPk($this->CAR_CORREL))?$per->CAR_NOMBRE:"";
+		return ($per=Cargo::model()->findByPk($this->CAR_CORREL))?$per->CAR_NOMBRE:"SIN CARGO";
+	}
+
+	public function getUSUARIO()
+	{
+		return ($per=Usuario::model()->findByPk($this->PER_CORREL))?$per->USU_ROLE:"No tiene usuario";
+	}
+	public function getIFUSUARIO()
+	{
+		return (Usuario::model()->findByPk($this->PER_CORREL))?TRUE:FALSE;
 	}
 	/**
 	 * Returns the static model of the specified AR class.

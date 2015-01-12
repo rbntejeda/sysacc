@@ -26,9 +26,7 @@
 	$cs->registerScript('tooltip', "$('[data-toggle=\"tooltip\"]').tooltip();$('[data-toggle=\"popover\"]').tooltip()", CClientScript::POS_READY);
 	?>
 	<!--[if lt IE 9]><script src="<?php	echo $baseUrl . '/js/html5shiv.js';	?>"></script><script src="<?php	echo $baseUrl . '/js/respond.min.js';?>"></script><![endif]-->
-<style type="text/css">
-	body { padding-top: 70px; }
-</style>
+
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -42,76 +40,88 @@
 	 <?php
 		$this->widget('bootstrap.widgets.BsNavbar', array(
 			'collapse' => true,
-			'brandLabel'=>'SYSACC',
+			'brandLabel'=>BsHtml::icon(BsHtml::GLYPHICON_FIRE).' SYSACC',
 			'brandUrl' => Yii::app()->homeUrl,
-			'position' => BsHtml::NAVBAR_POSITION_FIXED_TOP,
+			/*'position' => BsHtml::NAVBAR_POSITION_FIXED_TOP,
 			'htmlOptions' => array(
 			        'containerOptions' => array(
 			            'fluid' => true
 			        ),
-			    ),
-
-			//'color'=>'#99cc32',
+			    ),*/
+//'color' => BsHtml::NAVBAR_COLOR_INVERSE,
 			'items' => array(
 				//dropdown
-				/*
+				
 				array(
 					'class' => 'bootstrap.widgets.BsNav',
 					'type' => 'navbar',
 					'activateParents' => true,
 					'items' => array(
 						array(
-							'label' => 'dropdown',
-							'url' => array(
-								'/site/index'
-							),
+							'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN"),
+							'label' => 'Administración',
+							'url' => array('/Usuario/index'),
+							'icon'=> BsHtml::GLYPHICON_COG,
 							'items' => array(
-								BsHtml::menuHeader(BsHtml::icon(BsHtml::GLYPHICON_BOOKMARK), array(
-									'class' => 'text-center',
-									'style' => 'color:#99cc32;font-size:32px;'
-								)),
-								array(
-									'label' => 'Login',
-									'url' => array(
-										'/site/login'
-									),
-									'visible' => Yii::app()->user->isGuest,
-									'icon' => BsHtml::GLYPHICON_LOG_IN
-								),
-								array(
-									'label' => 'Logout (' . Yii::app()->user->name . ')',
-									'url' => array(
-										'/site/logout'
-									),
-									'visible' => !Yii::app()->user->isGuest
-								),
-								array(
-									'label' => 'Home',
-									'url' => array(
-										'/site/index'
-									),
-									'icon' => BsHtml::GLYPHICON_HOME
-								),
-								array(
-									'label' => 'About',
-									'url' => array(
-										'/site/page',
-										'view' => 'about'
-									),
-									'icon' => BsHtml::GLYPHICON_PAPERCLIP
-								),
-								array(
-									'label' => 'Contact',
-									'url' => array(
-										'/site/contact'
-									),
-									'icon' => BsHtml::GLYPHICON_FLOPPY_OPEN
-								)
+								BsHtml::dropDownHeader('Administración de Empresas'),
+								array('label' => 'Agregar Planta','url' => array('/Planta/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Administrar Planta','url' => array('/Planta/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Agregar Empresa','url' => array('/Empresa/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								
+								array('label' => 'Administrar Empresa','url' => array('/Empresa/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								BsHtml::menuDivider(),
+								BsHtml::dropDownHeader('Administración de Usuarios'),
+								array('label' => 'Agregar Personas','url' => array('/persona/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Administrar Personas','url' => array('/persona/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Agregar Usuarios','url' => array('/usuario/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Administrar Usuarios','url' => array('/usuario/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
 							)
 						)
 					)
 				),
-				*/
+				array(
+					'class' => 'bootstrap.widgets.BsNav',
+					'type' => 'navbar',
+					'activateParents' => true,
+					'items' => array(
+						array(
+							'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN,FUNCIONARIO"),
+							'label' => 'Indicadores',
+							'url' => array('/Usuario/index'),
+							'icon'=> BsHtml::GLYPHICON_SAVED,
+							'items' => array(
+								BsHtml::dropDownHeader('Accidentabilidad'),
+								array('label' => 'Agregar indicador','url' => array('/indicador/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								BsHtml::menuDivider(),
+								BsHtml::dropDownHeader('Accidentes de trabajo'),
+								array('label' => 'Accidentes de Forestal','url' => array('/accidente/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Accidentes de Industrial','url' => array('/accidente/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+							
+							)
+						)
+					)
+				),
+				array(
+					'class' => 'bootstrap.widgets.BsNav',
+					'type' => 'navbar',
+					'activateParents' => true,
+					'items' => array(
+						array(
+							'label' => 'Estadisticas',
+							'url' => array('/Usuario/index'),
+							'icon'=> BsHtml::GLYPHICON_SIGNAL,
+							'items' => array(
+								array('label' => 'Seguridad por empresa','url' => array('/estadistica/seg_emp/'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Seguridad de empresas por area','url' => array('/estadistica/seg_emp_are/'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Seguridad planta con areas','url' => array('/estadistica/seg_plan_are/'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Seguridad de empresas con otras empresas','url' => array('/estadistica/seg_emp_emp/'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Accidentes mensuales por empresas','url' => array('/estadistica/acc_men_emp/'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Accidentes Anuales Area Bosque','url' => array('/estadistica/acc_anu_are_bosque/'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+							)
+						)
+					)
+				),
+				/*			
 				array(
 					'class' => 'bootstrap.widgets.BsNav',
 					'type' => 'navbar',
@@ -126,7 +136,7 @@
 										//'pull' => BsHtml::NAVBAR_NAV_PULL_RIGHT
 					)
 				),
-
+				*/
 				array(
 					'class' => 'bootstrap.widgets.BsNav',
 					'type' => 'navbar',
@@ -137,10 +147,12 @@
 							'url' => array(
 								'/site/index'
 							),
+					'icon'=>BsHtml::GLYPHICON_USER,
 							'items' => array(
 
-								array('label' => 'Cambiar Contraseña','url' => array('/site/logout'),'visible' => !Yii::app()->user->isGuest),
-								array('label' => 'Cerrar Sesión','url' => array('/site/logout'),'visible' => !Yii::app()->user->isGuest)
+								array('icon'=>BsHtml::GLYPHICON_USER,'label' => 'Cambiar Contraseña','url' => array('/site/logout'),'visible' => !Yii::app()->user->isGuest),
+								BsHtml::menuDivider(),
+								array('icon'=>BsHtml::GLYPHICON_LOG_OUT,'label' => 'Cerrar Sesión','url' => array('/site/logout'),'visible' => !Yii::app()->user->isGuest)
 						
 							)
 						)
@@ -150,25 +162,25 @@
 					),
 				),
 			)
-));
-?>
+		)
+	);?>
 	<div class="container-fluid">
-<?php
-		$this->widget('bootstrap.widgets.BsBreadCrumb', array(
-			'links' => $this->breadcrumbs,
-			// will change the container to ul
-			'tagName' => 'ul',
-			// will generate the clickable breadcrumb links
-			'activeLinkTemplate' => '<li><a href="{url}">{label}</a></li>',
-			// will generate the current page url : <li>News</li>
-			'inactiveLinkTemplate' => '<li>{label}</li>',
-			// will generate your homeurl item : <li><a href="/dr/dr/public_html/">Home</a></li>
-			'homeLink' => BsHtml::openTag('li') . BsHtml::icon(BsHtml::GLYPHICON_HOME) . BsHtml::closeTag('li')
-		));
-	?><!-- breadcrumbs -->
-	<div class="row">
-		<?php echo $content; ?>
-	</div>
+		<?php
+			$this->widget('bootstrap.widgets.BsBreadCrumb', array(
+				'links' => $this->breadcrumbs,
+				// will change the container to ul
+				'tagName' => 'ul',
+				// will generate the clickable breadcrumb links
+				'activeLinkTemplate' => '<li><a href="{url}">{label}</a></li>',
+				// will generate the current page url : <li>News</li>
+				'inactiveLinkTemplate' => '<li>{label}</li>',
+				// will generate your homeurl item : <li><a href="/dr/dr/public_html/">Home</a></li>
+				'homeLink' => BsHtml::openTag('li') . BsHtml::icon(BsHtml::GLYPHICON_HOME) . BsHtml::closeTag('li')
+			));
+		?><!-- breadcrumbs -->
+		<div class="row">
+			<?php echo $content; ?>
+		</div>
 		
 
 	</div><!--/.fluid-container-->
@@ -178,8 +190,6 @@
 			Todos los Derechos Reservados.<br/>
 	</p>
 	
-</div><!-- page -->
-<!--script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.Rut.min.js"></script-->
-
+</div>
 </body>
 </html>

@@ -42,7 +42,6 @@ $this->menu=array(
 			<tr>
 				<th>Nombre</th>
 				<th>RUT</th>
-				<th>Estado</th>
 				<th>Creado</th>
 				<th>Modificado</th>
 				<th>Cargo</th>
@@ -56,7 +55,6 @@ $this->menu=array(
 				<tr>
 					<td><?php echo $usu->PER_NOMBRE ?></td>
 					<td><?php echo $usu->PER_RUT ?></td>
-					<td><?php echo $usu->USU_ESTADO ?></td>
 					<td><?php echo $usu->USU_CREATE ?></td>
 					<td><?php echo $usu->USU_MODIFIED ?></td>
 					<td><?php echo $usu->PER_CARGO ?></td>

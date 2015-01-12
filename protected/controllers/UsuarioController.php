@@ -27,16 +27,20 @@ class UsuarioController extends Controller
 	public function accessRules()
 	{
 		return array(
+			array('allow',
+				'actions'=>array('login'),
+				'users'=>array('*')
+			),
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','login'),
-				'users'=>array('*'),
+				'actions'=>array('index','view','error'),
+				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','logout'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','deleted','crear'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -44,6 +48,20 @@ class UsuarioController extends Controller
 			),
 		);
 	}
+
+	public function actionError()
+	{
+		if($error=Yii::app()->errorHandler->error)
+		{
+			if(Yii::app()->request->isAjaxRequest)
+				echo $error['message'];
+			else{
+				$this->layout='column1';
+				$this->render('error', $error);
+			}
+		}
+	}
+
 	public function actionLogin()
 	{
 		$model=new LoginForm;
@@ -106,13 +124,33 @@ class UsuarioController extends Controller
 				$this->redirect(array('view','id'=>$model->PER_CORREL));
 		}
 		$model->USU_PASSWORD='';
-
+		$model->password='';
 		$this->render('create',array(
 		'model'=>$model,
 		'per'=>$per
 		));
 	}
 
+	public function actionCrear($id)
+	{
+		$model=new Usuario('Create');
+		$model->PER_CORREL=$id;
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+		if(isset($_POST['Usuario']))
+		{
+			$model->attributes=$_POST['Usuario'];
+			$model->USU_PASSWORD=md5($model->USU_PASSWORD);
+			$model->password=md5($model->password);
+			if($model->save())
+				$this->redirect(array('/persona/view','id'=>$model->PER_CORREL));
+		}
+		$model->USU_PASSWORD='';
+		$model->password='';
+		$this->render('crear',array(
+		'model'=>$model,
+		));
+	}
 	/**
 	* Updates a particular model.
 	* If update is successful, the browser will be redirected to the 'view' page.
@@ -122,13 +160,20 @@ class UsuarioController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$model->scenario="update";
-		$per=Persona::model()->findAll("PER_CORREL=$id");
+		$per=Persona::model()->findByPk($id);
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Usuario']))
 		{
 			$model->attributes=$_POST['Usuario'];
+			if($model->USU_PASSWORD==""){
+				$model->USU_PASSWORD=$this->loadModel($id)->USU_PASSWORD;
+				$model->password=" ";
+			}
+			else{
+				$model->USU_PASSWORD=md5($model->USU_PASSWORD);
+			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->PER_CORREL));
 		}
@@ -144,19 +189,13 @@ class UsuarioController extends Controller
 	* If deletion is successful, the browser will be redirected to the 'admin' page.
 	* @param integer $id the ID of the model to be deleted
 	*/
-	public function actionDelete($id)
+	public function actionDeleted($id)
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('/persona/admin/'));
 	}
 
 	/**

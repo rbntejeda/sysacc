@@ -1,6 +1,6 @@
 <?php
 
-class PersonaController extends Controller
+class PlantaController extends Controller
 {
 	/**
 	* @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -36,7 +36,7 @@ class PersonaController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','deleted'),
+				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -62,13 +62,16 @@ class PersonaController extends Controller
 	*/
 	public function actionCreate()
 	{
-		$model=new Persona;
+		$model=new Planta;
 
-		if(isset($_POST['Persona']))
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Planta']))
 		{
-			$model->attributes=$_POST['Persona'];
+			$model->attributes=$_POST['Planta'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->PER_CORREL));
+				$this->redirect(array('view','id'=>$model->PLA_CORREL));
 		}
 
 		$this->render('create',array(
@@ -88,11 +91,11 @@ class PersonaController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Persona']))
+		if(isset($_POST['Planta']))
 		{
-			$model->attributes=$_POST['Persona'];
+			$model->attributes=$_POST['Planta'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->PER_CORREL));
+				$this->redirect(array('view','id'=>$model->PLA_CORREL));
 		}
 
 		$this->render('update',array(
@@ -105,14 +108,19 @@ class PersonaController extends Controller
 	* If deletion is successful, the browser will be redirected to the 'admin' page.
 	* @param integer $id the ID of the model to be deleted
 	*/
-	public function actionDeleted($id)
+	public function actionDelete($id)
 	{
+		if(Yii::app()->request->isPostRequest)
+		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -120,7 +128,7 @@ class PersonaController extends Controller
 	*/
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Persona');
+		$dataProvider=new CActiveDataProvider('Planta');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -131,7 +139,10 @@ class PersonaController extends Controller
 	*/
 	public function actionAdmin()
 	{
-		$model=Persona::model()->findAll();
+		$model=new Planta('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Planta']))
+			$model->attributes=$_GET['Planta'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -142,12 +153,12 @@ class PersonaController extends Controller
 	* Returns the data model based on the primary key given in the GET variable.
 	* If the data model is not found, an HTTP exception will be raised.
 	* @param integer $id the ID of the model to be loaded
-	* @return Persona the loaded model
+	* @return Planta the loaded model
 	* @throws CHttpException
 	*/
 	public function loadModel($id)
 	{
-		$model=Persona::model()->findByPk($id);
+		$model=Planta::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -155,11 +166,11 @@ class PersonaController extends Controller
 
 	/**
 	* Performs the AJAX validation.
-	* @param Persona $model the model to be validated
+	* @param Planta $model the model to be validated
 	*/
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='persona-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='planta-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

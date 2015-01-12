@@ -31,9 +31,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Crear Persona', 'url'=>array('create')),
+	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Añadir Persona', 'url'=>array('create')),
+	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Añadir Usuario', 'url'=>array('/usuario/create')),
 );
-echo BsHtml::pageHeader('Administrar','Personas') ?>
+echo BsHtml::pageHeader('Administración','Personas') ?>
 
 <table class="table table-striped" id="table-usuarios">
 	<thead>
@@ -52,24 +53,63 @@ echo BsHtml::pageHeader('Administrar','Personas') ?>
 			<tr>
 				<td><?php echo $usu->PER_RUT ?></td>
 				<td><?php echo $usu->nombreCompleto ?></td>
-				<td><?php echo $usu->CAR_NOMBRE ?></td>
+				<td><?php echo $usu->CAR_CORREL ?></td>
 				<td><?php echo $usu->EMP_NOMBRE ?></td>
 				<td><?php echo $usu->PER_EMAIL ?></td>
 				<td><?php echo $usu->PER_TELEFONO ?></td>
 				<td>
 				  <center>
-					<div class="btn-group">
-					  <div class="input-group">
-						<button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
-						  <span class="glyphicon glyphicon-cog"></span>
-						</button>
-						<ul class="dropdown-menu pull-right">
-							<li><a href="<?php echo Yii::app()->createUrl("Persona/update/$usu->PER_CORREL"); ?>">Editar Usuario</a></li>
-							  <!--trigger Modal-->
-						  	<li data-toggle="modal" data-target="#questionDelete<?php echo $usu->PER_CORREL?>"><a>Eliminar Usuario</a></li>
-						</ul>
-					  </div> 
-					</div>
+					<?php
+						$this->widget('bootstrap.widgets.BsModal', array(
+						    'id' => 'myModal'.$usu->PER_CORREL,
+						    'header' => '¿Seguro que desea eliminar a '.$usu->nombreCompleto." ?",
+						    'content' => 'Sí, desea eliminar a '.$usu->nombreCompleto.', presiona el boton rojo.',
+						    'footer' => array(
+						        BsHtml::linkButton('Eliminar de todas maneras', array(
+						        	'url'=>"deleted/$usu->PER_CORREL",
+						            'color' => BsHtml::BUTTON_COLOR_DANGER
+						        )),
+						        BsHtml::button('cerrar', array(
+						            'data-dismiss' => 'modal'
+						        ))
+						    )
+						));
+					?>
+					 <?php
+						echo BsHtml::buttonDropdown(BsHtml::icon(BsHtml::GLYPHICON_COG), array(
+						    array(
+						        'label' => 'Agregar Usuario',
+						        'url' => array('/usuario/crear/'.$usu->PER_CORREL),
+						        'visible'=>!$usu->IFUSUARIO,
+						    ),
+						    array(
+						        'label' => 'Quitar Usuario',
+						        'url' => array('/usuario/deleted/'.$usu->PER_CORREL),
+						        'visible'=>$usu->IFUSUARIO,
+						    ),
+						    array(
+						        'label' => 'Ver Persona',
+						        'url' => 'view/'.$usu->PER_CORREL
+						    ),
+						    array(
+						        'label' => 'Modificar Persona',
+						        'url' => 'update/'.$usu->PER_CORREL
+						    ),
+						    array(
+						    	'url'=>'#',
+						        'label' => 'Eliminar Persona',
+						        'visible'=>false,
+						        'htmlOptions'=>array(
+						        	'data-toggle'=>"modal",
+						        	'data-target'=>"#myModal".$usu->PER_CORREL
+						        )
+
+						    )
+						), array(
+						    'size' => BsHtml::BUTTON_SIZE_SMALL,
+						    'color' => BsHtml::BUTTON_COLOR_INFO
+						));
+					?>
 				  </center>
 				</td>
 			</tr>
