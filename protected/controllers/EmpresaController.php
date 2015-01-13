@@ -138,11 +138,7 @@ class EmpresaController extends Controller
 	*/
 	public function actionAdmin()
 	{
-		$model=new Empresa('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Empresa']))
-			$model->attributes=$_GET['Empresa'];
-
+		$model=Empresa::model()->findAll();
 		$this->render('admin',array(
 			'model'=>$model,
 		));

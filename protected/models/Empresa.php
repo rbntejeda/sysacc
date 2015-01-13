@@ -115,6 +115,10 @@ class Empresa extends CActiveRecord
 	{
 		return ($com=Comuna::model()->findByPk($this->COM_CORREL))?$com->COM_NOMBRE:"Sin Asignar";
 	}
+		public function getIFPLANTA()
+	{
+		return (Planta::model()->findByAttributes(array('EMP_CORREL'=>$this->EMP_CORREL)))?TRUE:FAlSE;
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

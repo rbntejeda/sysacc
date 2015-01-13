@@ -5,20 +5,12 @@
 
 <?php
 $this->breadcrumbs=array(
-	'Indicadors'=>array('index'),
-	$model->IND_CORREL,
-);
-
-$this->menu=array(
-    array('icon' => 'glyphicon glyphicon-list','label'=>'List Indicador', 'url'=>array('index')),
-	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Create Indicador', 'url'=>array('create')),
-	array('icon' => 'glyphicon glyphicon-edit','label'=>'Update Indicador', 'url'=>array('update', 'id'=>$model->IND_CORREL)),
-	array('icon' => 'glyphicon glyphicon-minus-sign','label'=>'Delete Indicador', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->IND_CORREL),'confirm'=>'Are you sure you want to delete this item?')),
-    array('icon' => 'glyphicon glyphicon-tasks','label'=>'Manage Indicador', 'url'=>array('admin')),
+	'Indicador',
+	$model->PLA_NOMBRE,
 );
 ?>
 
-<?php echo BsHtml::pageHeader('View','Indicador '.$model->IND_CORREL) ?>
+<?php echo BsHtml::pageHeader('Mostrar','Indicador del mes de '.$model->MES.' año '.$model->IND_ANYO.','.$model->PLA_NOMBRE.'.') ?>
 
 <?php $this->widget('zii.widgets.CDetailView',array(
 	'htmlOptions' => array(
@@ -26,10 +18,9 @@ $this->menu=array(
 	),
 	'data'=>$model,
 	'attributes'=>array(
-		'IND_CORREL',
-		'PLA_CORREL',
+		'PLA_NOMBRE',
 		'IND_ANYO',
-		'IND_MES',
+		'MES',
 		'IND_CTP',
 		'IND_HHMES',
 		'IND_DIASPERDIDOS',

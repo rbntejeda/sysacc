@@ -30,10 +30,6 @@ $this->breadcrumbs=array(
 	'Administrar',
 );
 
-$this->menu=array(
-	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Añadir Persona', 'url'=>array('create')),
-	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Añadir Usuario', 'url'=>array('/usuario/create')),
-);
 echo BsHtml::pageHeader('Administración','Personas') ?>
 
 <table class="table table-striped" id="table-usuarios">
@@ -45,18 +41,20 @@ echo BsHtml::pageHeader('Administración','Personas') ?>
 			<th>Empresa</th>
 			<th>Email</th>
 			<th>Telefono</th>
+			<th>Usuario</th>
 			<th>Opciones</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php foreach ($model as $usu): ?>
-			<tr>
+			<tr <?php if(!$usu->IFUSUARIO)echo 'class="danger"'; ?>>
 				<td><?php echo $usu->PER_RUT ?></td>
 				<td><?php echo $usu->nombreCompleto ?></td>
 				<td><?php echo $usu->CAR_CORREL ?></td>
 				<td><?php echo $usu->EMP_NOMBRE ?></td>
 				<td><?php echo $usu->PER_EMAIL ?></td>
 				<td><?php echo $usu->PER_TELEFONO ?></td>
+				<td><?php echo $usu->USUARIO ?></td>
 				<td>
 				  <center>
 					<?php

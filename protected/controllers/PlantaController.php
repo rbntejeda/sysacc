@@ -27,16 +27,13 @@ class PlantaController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
+
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','index','view'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','deleted','Crear'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -60,6 +57,24 @@ class PlantaController extends Controller
 	* Creates a new model.
 	* If creation is successful, the browser will be redirected to the 'view' page.
 	*/
+	public function actionCrear($id)
+	{
+		$model=new Planta;
+		$model->EMP_CORREL=$id;
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Planta']))
+		{
+			$model->attributes=$_POST['Planta'];
+			if($model->save())
+				$this->redirect(array('/empresa/view/','id'=>$model->EMP_CORREL));
+		}
+
+		$this->render('crear',array(
+		'model'=>$model,
+		));
+	}
 	public function actionCreate()
 	{
 		$model=new Planta;
@@ -95,7 +110,7 @@ class PlantaController extends Controller
 		{
 			$model->attributes=$_POST['Planta'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->PLA_CORREL));
+				$this->redirect(array('/empresa/view','id'=>$model->EMP_CORREL));
 		}
 
 		$this->render('update',array(
@@ -108,19 +123,14 @@ class PlantaController extends Controller
 	* If deletion is successful, the browser will be redirected to the 'admin' page.
 	* @param integer $id the ID of the model to be deleted
 	*/
-	public function actionDelete($id)
+	public function actionDeleted($id)
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
-
+			$plan=$this->loadModel($id);
+			$EMP_CORREL=$plan->EMP_CORREL;
+			$plan->delete();
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('empresa/view/'.$EMP_CORREL));
 	}
 
 	/**

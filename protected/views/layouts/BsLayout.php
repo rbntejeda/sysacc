@@ -150,9 +150,9 @@
 					'icon'=>BsHtml::GLYPHICON_USER,
 							'items' => array(
 
-								array('icon'=>BsHtml::GLYPHICON_USER,'label' => 'Cambiar Contraseña','url' => array('/site/logout'),'visible' => !Yii::app()->user->isGuest),
+								array('icon'=>BsHtml::GLYPHICON_USER,'label' => 'Cambiar Contraseña','url' => array('/usuario/changepassword'),'visible' => !Yii::app()->user->isGuest),
 								BsHtml::menuDivider(),
-								array('icon'=>BsHtml::GLYPHICON_LOG_OUT,'label' => 'Cerrar Sesión','url' => array('/site/logout'),'visible' => !Yii::app()->user->isGuest)
+								array('icon'=>BsHtml::GLYPHICON_LOG_OUT,'label' => 'Cerrar Sesión','url' => array('/usuario/logout'),'visible' => !Yii::app()->user->isGuest)
 						
 							)
 						)
@@ -186,7 +186,7 @@
 	</div><!--/.fluid-container-->
 	<div class="clear"></div>
 	<p class="text-center">
-			Copyright &copy; <?php echo date('Y'); ?> para la Corporporación de la Madera.<br/>
+			Copyright &copy; <?php echo date('Y'); ?> para la Corporporación Chilena de la Madera.<br/>
 			Todos los Derechos Reservados.<br/>
 	</p>
 	

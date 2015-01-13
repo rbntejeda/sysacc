@@ -37,16 +37,15 @@ class Planta extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('EMP_CORREL,PLA_NOMBRE, PLA_ESTADO', 'required'),
+			array('EMP_CORREL,PLA_NOMBRE', 'required'),
 			array('COM_CORREL, EMP_CORREL', 'length', 'max'=>10),
 			array('PLA_RUT', 'length', 'max'=>12),
 			array('PLA_NOMBRE', 'length', 'max'=>150),
 			array('PLA_DIRECCION', 'length', 'max'=>200),
 			array('PLA_TELEFONO', 'length', 'max'=>50),
-			array('PLA_ESTADO', 'length', 'max'=>8),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('PLA_CORREL, COM_CORREL, EMP_CORREL, PLA_RUT, PLA_NOMBRE, PLA_DIRECCION, PLA_TELEFONO, PLA_ESTADO', 'safe', 'on'=>'search'),
+			array('PLA_CORREL, COM_CORREL, EMP_CORREL, PLA_RUT, PLA_NOMBRE, PLA_DIRECCION, PLA_TELEFONO', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,7 +77,8 @@ class Planta extends CActiveRecord
 			'PLA_NOMBRE' => 'Nombre',
 			'PLA_DIRECCION' => 'Dirección',
 			'PLA_TELEFONO' => 'Telefono',
-			'PLA_ESTADO' => 'Estado',
+			'COM_NOMBRE'=>'Comuna',
+			'EMP_NOMBRE'=>'Empresa'
 		);
 	}
 
@@ -107,13 +107,19 @@ class Planta extends CActiveRecord
 		$criteria->compare('PLA_NOMBRE',$this->PLA_NOMBRE,true);
 		$criteria->compare('PLA_DIRECCION',$this->PLA_DIRECCION,true);
 		$criteria->compare('PLA_TELEFONO',$this->PLA_TELEFONO,true);
-		$criteria->compare('PLA_ESTADO',$this->PLA_ESTADO,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
+	public function getCOM_NOMBRE()
+	{
+		return ($emp=Comuna::model()->findByPk($this->COM_CORREL))?$emp->COM_NOMBRE:"No Asignada";
+	}
+	public function getEMP_NOMBRE()
+	{
+		return ($emp=Empresa::model()->findByPk($this->EMP_CORREL))?$emp->EMP_NOMBRE:"Sin Empresa";
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

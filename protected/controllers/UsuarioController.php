@@ -36,11 +36,11 @@ class UsuarioController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update','logout'),
+				'actions'=>array('logout','changePassword'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','deleted','crear','create'),
+				'actions'=>array('admin','deleted','crear','create','update'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -143,7 +143,7 @@ class UsuarioController extends Controller
 			$model->USU_PASSWORD=md5($model->USU_PASSWORD);
 			$model->password=md5($model->password);
 			if($model->save())
-				$this->redirect(array('/persona/view','id'=>$model->PER_CORREL));
+				$this->redirect(array('/persona/admin'));
 		}
 		$model->USU_PASSWORD='';
 		$model->password='';
@@ -184,11 +184,30 @@ class UsuarioController extends Controller
 		));
 	}
 
-	/**
-	* Deletes a particular model.
-	* If deletion is successful, the browser will be redirected to the 'admin' page.
-	* @param integer $id the ID of the model to be deleted
-	*/
+	public function actionChangepassword()
+	{
+		$model=Usuario::model()->findByPk(Yii::app()->user->correl);
+		$model->scenario='Create';
+		if(isset($_POST['Usuario']))
+		{
+			$model->attributes=$_POST['Usuario'];
+			if($model->USU_PASSWORD==""){
+				$model->USU_PASSWORD=$this->loadModel(Yii::app()->user->correl)->USU_PASSWORD;
+			}
+			else{
+				$model->USU_PASSWORD=md5($model->USU_PASSWORD);
+				$model->password=md5($model->password);
+			}
+			if($model->save())
+				$this->redirect(array("/"));
+		}
+		$model->USU_PASSWORD="";
+		$model->password="";
+		$this->render('changePassword',array(
+			'model'=>$model,
+		));
+
+	}
 	public function actionDeleted($id)
 	{
 			$this->loadModel($id)->delete();
