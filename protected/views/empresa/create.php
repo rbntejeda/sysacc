@@ -5,8 +5,8 @@
 
 <?php
 $this->breadcrumbs=array(
-	'Empresas'=>array('index'),
-	'Create',
+	'Empresas',
+	'Agregar',
 );
 
 $this->menu=array(
@@ -15,6 +15,6 @@ $this->menu=array(
 );
 ?>
 
-<?php echo BsHtml::pageHeader('Create','Empresa') ?>
+<?php echo BsHtml::pageHeader('Agregar','Empresa') ?>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

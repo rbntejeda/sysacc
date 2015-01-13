@@ -5,9 +5,9 @@
 
 <?php
 $this->breadcrumbs=array(
-	'Empresas'=>array('index'),
-	$model->EMP_CORREL=>array('view','id'=>$model->EMP_CORREL),
-	'Update',
+	'Empresas',
+	$model->EMP_NOMBRE,
+	'Actualizar',
 );
 
 $this->menu=array(
@@ -18,5 +18,5 @@ $this->menu=array(
 );
 ?>
 
-<?php echo BsHtml::pageHeader('Update','Empresa '.$model->EMP_CORREL) ?>
+<?php echo BsHtml::pageHeader('Actualizar','Empresa '.$model->EMP_CORREL) ?>
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

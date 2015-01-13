@@ -108,6 +108,8 @@ class PersonaController extends Controller
 	public function actionDeleted($id)
 	{
 			// we only allow deletion via POST request
+
+			Usuario::model()->findByPk($id)->delete();
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

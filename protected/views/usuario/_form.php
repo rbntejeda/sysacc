@@ -10,10 +10,8 @@
     'enableClientValidation'=>true,
 )); ?>
 
-    <p class="help-block">Los campos con <span class="required">*</span> son requeridos.</p>
-
+    <?php echo BsHtml::emphasis('Los campos con '.BsHtml::abbr('*', 'El campo con * es obligatorio').' son requeridos.', array('color' => BsHtml::TEXT_COLOR_DANGER));?>
     <?php echo $form->errorSummary($model); ?>
-
     <?php echo ($model->scenario=="update")?null:$form->dropDownListControlGroup($model,'PER_CORREL',CHtml::listData($per, 'PER_CORREL', 'nombreRut'),array ('prompt'=>'Seleccione una persona'));?>
     <?php echo $form->passwordFieldControlGroup($model,'USU_PASSWORD',array('maxlength'=>200)); ?>
     <?php echo ($model->scenario=="update")?null:$form->passwordFieldControlGroup($model,'password',array('maxlength'=>200)); ?>

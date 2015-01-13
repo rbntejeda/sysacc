@@ -70,8 +70,10 @@ class EmpresaController extends Controller
 		if(isset($_POST['Empresa']))
 		{
 			$model->attributes=$_POST['Empresa'];
+			$model->EMP_AREA=implode(",", $model->EMP_AREA);
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->EMP_CORREL));
+			$model->EMP_AREA=explode(",", $model->EMP_AREA);
 		}
 
 		$this->render('create',array(
@@ -87,17 +89,17 @@ class EmpresaController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Empresa']))
 		{
 			$model->attributes=$_POST['Empresa'];
+			$model->EMP_AREA=implode(",", $model->EMP_AREA);
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->EMP_CORREL));
 		}
-
+		$model->EMP_AREA=explode(",", $model->EMP_AREA);
 		$this->render('update',array(
 			'model'=>$model,
 		));

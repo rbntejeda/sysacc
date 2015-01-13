@@ -16,8 +16,7 @@
     'enableClientValidation'=>true,
 )); ?>
 
-    <p class="help-block">Los campos con <span class="required">*</span> son requeridos.</p>
-
+    <?php echo BsHtml::emphasis('Los campos con '.BsHtml::abbr('*', 'El campo con * es obligatorio').' son requeridos.', array('color' => BsHtml::TEXT_COLOR_DANGER));?>
     <?php echo $form->errorSummary($model); ?>
 
     <?php echo $form->textFieldControlGroup($model,'PER_RUT',array('maxlength'=>12)); ?>

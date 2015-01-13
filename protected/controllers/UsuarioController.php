@@ -36,11 +36,11 @@ class UsuarioController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','logout'),
+				'actions'=>array('update','logout'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','deleted','crear'),
+				'actions'=>array('admin','deleted','crear','create'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users

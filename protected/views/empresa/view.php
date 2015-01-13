@@ -18,7 +18,7 @@ $this->menu=array(
 );
 ?>
 
-<?php echo BsHtml::pageHeader('View','Empresa '.$model->EMP_CORREL) ?>
+<?php echo BsHtml::pageHeader('Información','Empresa '.$model->EMP_NOMBRE) ?>
 
 <?php $this->widget('zii.widgets.CDetailView',array(
 	'htmlOptions' => array(
@@ -26,12 +26,11 @@ $this->menu=array(
 	),
 	'data'=>$model,
 	'attributes'=>array(
-		'EMP_CORREL',
-		'COM_CORREL',
+		'COM_NOMBRE',
 		'EMP_RUT',
 		'EMP_NOMBRE',
 		'EMP_DIRECCION',
 		'EMP_TELEFONO',
-		'EMP_ESTADO',
+		'EMP_AREA'
 	),
 )); ?>

@@ -98,7 +98,7 @@ echo BsHtml::pageHeader('Administración','Personas') ?>
 						    array(
 						    	'url'=>'#',
 						        'label' => 'Eliminar Persona',
-						        'visible'=>false,
+						        'visible'=>Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN"),
 						        'htmlOptions'=>array(
 						        	'data-toggle'=>"modal",
 						        	'data-target'=>"#myModal".$usu->PER_CORREL

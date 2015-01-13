@@ -37,7 +37,7 @@ class Planta extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('PLA_NOMBRE, PLA_ESTADO', 'required'),
+			array('EMP_CORREL,PLA_NOMBRE, PLA_ESTADO', 'required'),
 			array('COM_CORREL, EMP_CORREL', 'length', 'max'=>10),
 			array('PLA_RUT', 'length', 'max'=>12),
 			array('PLA_NOMBRE', 'length', 'max'=>150),

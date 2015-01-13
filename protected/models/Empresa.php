@@ -10,7 +10,7 @@
  * @property string $EMP_NOMBRE
  * @property string $EMP_DIRECCION
  * @property string $EMP_TELEFONO
- * @property string $EMP_ESTADO
+ * @property string $EMP_AREA
  *
  * The followings are the available model relations:
  * @property Comuna $cOMCORREL
@@ -36,16 +36,15 @@ class Empresa extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('EMP_NOMBRE, EMP_ESTADO', 'required'),
+			array('EMP_NOMBRE, EMP_AREA', 'required'),
 			array('COM_CORREL', 'length', 'max'=>10),
 			array('EMP_RUT', 'length', 'max'=>12),
 			array('EMP_NOMBRE', 'length', 'max'=>150),
 			array('EMP_DIRECCION', 'length', 'max'=>200),
 			array('EMP_TELEFONO', 'length', 'max'=>45),
-			array('EMP_ESTADO', 'length', 'max'=>8),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('EMP_CORREL, COM_CORREL, EMP_RUT, EMP_NOMBRE, EMP_DIRECCION, EMP_TELEFONO, EMP_ESTADO', 'safe', 'on'=>'search'),
+			array('EMP_CORREL, COM_CORREL, EMP_RUT, EMP_NOMBRE, EMP_DIRECCION, EMP_TELEFONO, EMP_AREA', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,12 +70,13 @@ class Empresa extends CActiveRecord
 	{
 		return array(
 			'EMP_CORREL' => 'Empresa',
+			'COM_NOMBRE' => 'Comuna',
 			'COM_CORREL' => 'Comuna',
-			'EMP_RUT' => 'Rut',
+			'EMP_RUT' => 'RUT',
 			'EMP_NOMBRE' => 'Nombre',
 			'EMP_DIRECCION' => 'Dirección',
 			'EMP_TELEFONO' => 'Telefono',
-			'EMP_ESTADO' => 'Estado',
+			'EMP_AREA' => 'Area',
 		);
 	}
 
@@ -104,13 +104,17 @@ class Empresa extends CActiveRecord
 		$criteria->compare('EMP_NOMBRE',$this->EMP_NOMBRE,true);
 		$criteria->compare('EMP_DIRECCION',$this->EMP_DIRECCION,true);
 		$criteria->compare('EMP_TELEFONO',$this->EMP_TELEFONO,true);
-		$criteria->compare('EMP_ESTADO',$this->EMP_ESTADO,true);
+		$criteria->compare('EMP_AREA',$this->EMP_AREA,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
 
+	public function getCOM_NOMBRE()
+	{
+		return ($com=Comuna::model()->findByPk($this->COM_CORREL))?$com->COM_NOMBRE:"Sin Asignar";
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
