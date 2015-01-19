@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Capa transparente</title>
+<style type="text/css">
+body {font-size:1.3em;}
+.fondoTransparente
+{
+	/*Div que ocupa toda la pantalla*/
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	background-color:#fff;
+	/*IE*/
+	filter: alpha(opacity=50);
+	/*FireFox Opera*/
+	opacity: .5;
+}
+.center
+{
+	position: absolute;
+	/*nos posicionamos en el centro del navegador*/
+	top:50%;
+	left:50%;
+	/*determinamos una anchura*/
+	width:400px;
+	/*indicamos que el margen izquierdo, es la mitad de la anchura*/
+	margin-left:-200px;
+	/*determinamos una altura*/
+	height:300px;
+	/*indicamos que el margen superior, es la mitad de la altura*/
+	margin-top:-150;
+	border:1px solid #808080;
+	background-color:#fff;
+	padding:5px;
+}
+</style>
+</head>
+
+<body>
+<h1>div con fondo opaco</h1>
+Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web. Contenido de la web.
+<p><a href='http://www.lawebdelprogramador.com'>La Web del Programador</a></p>
+
+<div class='fondoTransparente'>
+</div>
+<div class='center'>
+	Div centrado
+</div>
+</body>
+</html>

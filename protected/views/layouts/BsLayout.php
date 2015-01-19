@@ -15,6 +15,7 @@
 	 * StyleSHeets
 	 */
 	$cs->registerCssFile($baseUrl . '/css/bootstrap.css');
+	$cs->registerCssFile($baseUrl . '/css/themes.css');
 	//$cs->registerCssFile($baseUrl . '/css/bootstrap-theme.css');
 
 	/**
@@ -30,7 +31,7 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
-<body>
+<body >
 
 <div class="container">
 
@@ -64,18 +65,14 @@
 							'icon'=> BsHtml::GLYPHICON_COG,
 							'items' => array(
 								BsHtml::dropDownHeader('Administración de Empresas'),
-								array('label' => 'Agregar Planta','url' => array('/Planta/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
-								array('label' => 'Administrar Planta','url' => array('/Planta/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
-								array('label' => 'Agregar Empresa','url' => array('/Empresa/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
-								
 								array('label' => 'Administrar Empresa','url' => array('/Empresa/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Agregar Empresa','url' => array('/Empresa/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
 								BsHtml::menuDivider(),
+								
 								BsHtml::dropDownHeader('Administración de Usuarios'),
-								array('label' => 'Agregar Personas','url' => array('/persona/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
-								array('label' => 'Administrar Personas','url' => array('/persona/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
-								array('label' => 'Agregar Usuarios','url' => array('/usuario/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
-								array('label' => 'Administrar Usuarios','url' => array('/usuario/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
-							)
+								array('label' => 'Administrar Usuarios','url' => array('/persona/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Agregar Persona','url' => array('/persona/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								)
 						)
 					)
 				),
@@ -86,17 +83,15 @@
 					'items' => array(
 						array(
 							'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN,FUNCIONARIO"),
-							'label' => 'Indicadores',
+							'label' => 'Accidentes',
 							'url' => array('/Usuario/index'),
 							'icon'=> BsHtml::GLYPHICON_SAVED,
 							'items' => array(
 								BsHtml::dropDownHeader('Accidentabilidad'),
-								array('label' => 'Agregar indicador','url' => array('/indicador/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
+								array('label' => 'Agregar Tasa de accidentes','url' => array('/indicador/create'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
 								BsHtml::menuDivider(),
 								BsHtml::dropDownHeader('Accidentes de trabajo'),
-								array('label' => 'Accidentes de Forestal','url' => array('/accidente/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
-								array('label' => 'Accidentes de Industrial','url' => array('/accidente/admin'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
-							
+								array('label' => 'Agregar Accidente','url' => array('/accidente/ingresarForestal'),'visible' => Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN")),
 							)
 						)
 					)
@@ -107,7 +102,7 @@
 					'activateParents' => true,
 					'items' => array(
 						array(
-							'label' => 'Estadisticas',
+							'label' => 'Generar Estadisticas',
 							'url' => array('/Usuario/index'),
 							'icon'=> BsHtml::GLYPHICON_SIGNAL,
 							'items' => array(

@@ -16,7 +16,8 @@
     <?php echo BsHtml::emphasis('Los campos con '.BsHtml::abbr('*', 'El campo con * es obligatorio').' son requeridos.', array('color' => BsHtml::TEXT_COLOR_DANGER));?>
     <?php echo $form->errorSummary($model); ?>
 
-    <?php echo $form->textFieldControlGroup($model,'PLA_CORREL',array('maxlength'=>10)); ?>
+    <?php echo $form->dropDownListControlGroup($model,'PLA_CORREL',CHtml::listData(Planta::model()->findAll(), 'PLA_CORREL', 'PLA_NOMBRE'));?>
+    <?php echo $form->dropDownListControlGroup($model,'CAR_CORREL',CHtml::listData(Cargo::model()->findAll(), 'CAR_CORREL', 'CAR_NOMBRE'));?>
     <?php echo $form->textFieldControlGroup($model,'CAR_CORREL',array('maxlength'=>10)); ?>
     <?php echo $form->textAreaControlGroup($model,'ACC_DESCRICPION',array('rows'=>6)); ?>
     <?php echo $form->textAreaControlGroup($model,'ACC_SITIO',array('rows'=>6)); ?>

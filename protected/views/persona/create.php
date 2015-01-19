@@ -2,7 +2,7 @@
 /* @var $this PersonaController */
 /* @var $model Persona */
 ?>
-
+<div class="col-md-6 col-md-offset-3">
 <?php
 $this->breadcrumbs=array(
 	'Personas'=>array('admin'),
@@ -17,3 +17,4 @@ $this->menu=array(
 <?php echo BsHtml::pageHeader('Agregar','Persona') ?>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<div>

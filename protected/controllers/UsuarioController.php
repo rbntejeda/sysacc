@@ -7,7 +7,7 @@ class UsuarioController extends Controller
 	* using two-column layout. See 'protected/views/layouts/column2.php'.
 	*/
 	public $layout='//layouts/column2';
-	public $defaultAction='admin';
+	public $defaultAction='index';
 	/**
 	* @return array action filters
 	*/
@@ -222,7 +222,7 @@ class UsuarioController extends Controller
 	*/
 	public function actionIndex()
 	{
-		$this->actionAdmin();
+		$this->redirect(array('/persona/admin/'));
 	}
 
 	/**

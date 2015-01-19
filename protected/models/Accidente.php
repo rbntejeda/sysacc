@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the model class for table "accidente".
  *
@@ -7,7 +6,7 @@
  * @property string $ACC_CORREL
  * @property string $PLA_CORREL
  * @property string $CAR_CORREL
- * @property string $ACC_DESCRICPION
+ * @property string $ACC_DESCRIPCION
  * @property string $ACC_SITIO
  * @property string $ACC_FECHA
  * @property string $ACC_PARAFECT
@@ -39,13 +38,13 @@ class Accidente extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ACC_DESCRICPION, ACC_FECHA, ACC_PARAFECT, ACC_TIPO, ACC_AGENTE, ACC_ACCION, ACC_CONSEC', 'required'),
+			//array('ACC_COND,ACC_CONSEC,ACC_INCIDENTE,ACC_HORA,PLA_CORREL,CAR_CORREL, ACC_FECHA, ACC_PARAFECT, ACC_TIPO, ACC_AGENTE, ACC_ACCION, ACC_CONSEC', 'required'),
 			array('PLA_CORREL, CAR_CORREL', 'length', 'max'=>10),
 			array('ACC_RUT', 'length', 'max'=>12),
 			array('ACC_SITIO', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ACC_CORREL, PLA_CORREL, CAR_CORREL, ACC_DESCRICPION, ACC_SITIO, ACC_FECHA, ACC_PARAFECT, ACC_RUT, ACC_TIPO, ACC_AGENTE, ACC_ACCION, ACC_CONSEC', 'safe', 'on'=>'search'),
+			array('ACC_CORREL, PLA_CORREL, CAR_CORREL, ACC_DESCRIPCION, ACC_SITIO, ACC_FECHA, ACC_PARAFECT, ACC_RUT, ACC_TIPO, ACC_AGENTE, ACC_ACCION, ACC_CONSEC', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,18 +67,21 @@ class Accidente extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ACC_CORREL' => 'Acc Correl',
-			'PLA_CORREL' => 'Pla Correl',
-			'CAR_CORREL' => 'Car Correl',
-			'ACC_DESCRICPION' => 'Acc Descricpion',
-			'ACC_SITIO' => 'Acc Sitio',
-			'ACC_FECHA' => 'Acc Fecha',
-			'ACC_PARAFECT' => 'Acc Parafect',
-			'ACC_RUT' => 'Acc Rut',
-			'ACC_TIPO' => 'Acc Tipo',
-			'ACC_AGENTE' => 'Acc Agente',
-			'ACC_ACCION' => 'Acc Accion',
-			'ACC_CONSEC' => 'Acc Consec',
+			'ACC_COND'=>'Condición',
+			'ACC_INCIDENTE'=>'Incidente',
+			'ACC_HORA'=>'Hora',
+			'ACC_CORREL' => 'Accidente',
+			'PLA_CORREL' => 'Planta',
+			'CAR_CORREL' => 'Cargo',
+			'ACC_DESCRIPCION' => 'Descripción',
+			'ACC_SITIO' => 'Sitio preciso del accidente',
+			'ACC_FECHA' => 'Fecha',
+			'ACC_PARAFECT' => 'Parte Afectada',
+			'ACC_RUT' => 'Rut',
+			'ACC_TIPO' => 'Tipo Accidente',
+			'ACC_AGENTE' => 'Agente Accidente',
+			'ACC_ACCION' => 'Acciones',
+			'ACC_CONSEC' => 'Consecuencia',
 		);
 	}
 
@@ -104,7 +106,7 @@ class Accidente extends CActiveRecord
 		$criteria->compare('ACC_CORREL',$this->ACC_CORREL,true);
 		$criteria->compare('PLA_CORREL',$this->PLA_CORREL,true);
 		$criteria->compare('CAR_CORREL',$this->CAR_CORREL,true);
-		$criteria->compare('ACC_DESCRICPION',$this->ACC_DESCRICPION,true);
+		$criteria->compare('ACC_DESCRIPCION',$this->ACC_DESCRIPCION,true);
 		$criteria->compare('ACC_SITIO',$this->ACC_SITIO,true);
 		$criteria->compare('ACC_FECHA',$this->ACC_FECHA,true);
 		$criteria->compare('ACC_PARAFECT',$this->ACC_PARAFECT,true);

@@ -60,7 +60,7 @@ class Area extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ARE_CORREL' => 'Are Correl',
+			'ARE_CORREL' => 'Area',
 			'ARE_NOMBRE' => 'Are Nombre',
 			'ARE_TIPO' => 'Are Tipo',
 		);

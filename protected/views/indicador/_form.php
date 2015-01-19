@@ -33,7 +33,6 @@
     <?php echo $form->numberFieldControlGroup($model,'IND_DIASPERDIDOS',array('maxlength'=>10,'min'=>0)); ?>
     <?php echo $form->numberFieldControlGroup($model,'IND_DOTACION',array('maxlength'=>10,'min'=>0)); ?>
     <?php echo $form->numberFieldControlGroup($model,'IND_PRODUCCION',array('maxlength'=>10,'min'=>0)); ?>
-<?php echo BsHtml::formActions(array(BsHtml::submitButton('Ingresar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY))));?>
-
-
-<?php $this->endWidget(); ?>
+    <?php echo BsHtml::formActions(array(BsHtml::submitButton('Ingresar', array('color' => BsHtml::BUTTON_COLOR_PRIMARY))));?>
+    <?php $this->endWidget(); ?>
+</div>

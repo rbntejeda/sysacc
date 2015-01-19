@@ -1,15 +1,11 @@
-<?php
-/* @var $this PersonaController */
-/* @var $model Persona */
-?>
 
 <?php
 $this->breadcrumbs=array(
-	'Personas'=>array('index'),
+	'Personas'=>array('admin'),
 	$model->PER_CORREL,
 );?>
-<?php echo BsHtml::pageHeader('Ver',$model->nombreCompleto) ?>
-
+<?php echo BsHtml::linkButton('Volver', array('url'=>array('/persona/admin/'),'color' => BsHtml::BUTTON_COLOR_PRIMARY));?>
+<?php echo BsHtml::pageHeader('Ver usuario',$model->nombreCompleto) ?>
 <?php $this->widget('zii.widgets.CDetailView',array(
 	'htmlOptions' => array(
 		'class' => 'table table-striped table-condensed table-hover',
@@ -30,11 +26,35 @@ $this->breadcrumbs=array(
 	),
 )); ?>
 <?php
-echo (!$model->IFUSUARIO)?
-	BsHtml::linkButton('Agregar Usuario', array(
-		'url'=>array('/usuario/crear/'.$model->PER_CORREL),
-	    'color' => BsHtml::BUTTON_COLOR_PRIMARY)):
-    BsHtml::linkButton('Quitar Usuario', array(
-		'url'=>array('/usuario/deleted/'.$model->PER_CORREL),
-	    'color' => BsHtml::BUTTON_COLOR_PRIMARY));
+echo BsHtml::buttonGroup(array(
+    array(
+        'label' => 'Agregar Usuario',
+        'url' => array('/usuario/crear/'.$model->PER_CORREL),
+        'type' => BsHtml::BUTTON_TYPE_LINK,
+        'color' => BsHtml::BUTTON_COLOR_PRIMARY,
+        'visible'=>!$model->IFUSUARIO
+    ),
+    array(
+        'label' => 'Cambiar Contraseña',
+        'url' => array('/usuario/update/'.$model->PER_CORREL),
+        'type' => BsHtml::BUTTON_TYPE_LINK,
+        'color' => BsHtml::BUTTON_COLOR_WARNING,
+        'visible'=>$model->IFUSUARIO
+    ),
+    array(
+        'label' => 'Quitar Persona',
+        'url' => array('/persona/deleted/'.$model->PER_CORREL),
+        'type' => BsHtml::BUTTON_TYPE_LINK,
+        'color' => BsHtml::BUTTON_COLOR_DANGER,
+        'visible'=>$model->IFUSUARIO
+    ),
+    array(
+        'label' => 'Quitar Usuario',
+        'url' => array('/usuario/deleted/'.$model->PER_CORREL),
+        'type' => BsHtml::BUTTON_TYPE_LINK,
+        'color' => BsHtml::BUTTON_COLOR_DANGER,
+        'visible'=>$model->IFUSUARIO
+    ),
+), array(
+));
 ?>

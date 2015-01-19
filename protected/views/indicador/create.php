@@ -2,19 +2,13 @@
 /* @var $this IndicadorController */
 /* @var $model Indicador */
 ?>
-
 <?php
 $this->breadcrumbs=array(
-	'Indicadors'=>array('index'),
-	'Create',
-);
+	'Indicadores',
+	'Agregar tasa de accidentes'
+);?>
 
-$this->menu=array(
-    array('icon' => 'glyphicon glyphicon-list','label'=>'List Indicador', 'url'=>array('index')),
-	array('icon' => 'glyphicon glyphicon-tasks','label'=>'Manage Indicador', 'url'=>array('admin')),
-);
-?>
-
-<?php echo BsHtml::pageHeader('Agregar','Indicador') ?>
+<div class="col-md-6 col-md-offset-3">
+<?php echo BsHtml::pageHeader('Agregar','Tasa de Accidentes') ?>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

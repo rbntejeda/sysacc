@@ -3,10 +3,35 @@
 /* @var $model Persona */
 $cs = Yii::app()->clientScript;
 $baseUrl = Yii::app()->request->baseUrl;
+//Datatables
+$cs->registerCssFile($baseUrl . '/css/jquery.dataTables.css');
 $cs->registerScriptFile($baseUrl . '/js/jquery.dataTables.min.js', CClientScript::POS_END);
+//bootstrap
 $cs->registerScriptFile($baseUrl . '/js/dataTables.bootstrap.js', CClientScript::POS_END);
+//tabletools
+$cs->registerScriptFile($baseUrl . '/js/dataTables.tableTools.js', CClientScript::POS_END);
+$cs->registerCssFile($baseUrl . '/css/dataTables.tableTools.css');
+//Programacion datatables
 $cs->registerScript('tablas',"$(document).ready(function(){
 	$('#table-usuarios').dataTable({".'
+		dom: \'T<"clear">lfrtip\',
+		"tableTools": {
+            "aButtons": [
+                {
+                    "sExtends":    "collection",
+                    "sButtonText": "Guardar",
+                    "aButtons":    
+                    	["xls",                 
+                    	{
+		                    "sExtends": "pdf",
+		                    "sPdfOrientation": "landscape",
+		                    "sPdfMessage": "Usuarios del sistema de accidentabilidad."
+		                },
+		                "csv"]
+                }
+            ],
+            "SRowSelect": "single"
+        },
         "language": {
             "lengthMenu": "Ver _MENU_ registros por pagina.",
             "zeroRecords": "No existes registros.",
@@ -23,16 +48,16 @@ $cs->registerScript('tablas',"$(document).ready(function(){
         }
 	});
 });');
-$cs->registerCss("Search-derecha","#table-usuarios_filter {float: right;}");
+//$cs->registerCss("Search-derecha","#table-usuarios_filter {float: right;}");
 
 $this->breadcrumbs=array(
-	'Personas'=>array('admin'),
+	'Personas',
 	'Administrar',
 );
 
-echo BsHtml::pageHeader('Administración','Personas') ?>
+echo BsHtml::pageHeader('Administración','Usuarios') ?>
 
-<table class="table table-striped" id="table-usuarios">
+<table class="table table-hover" id="table-usuarios">
 	<thead>
 		<tr>
 			<th>RUT</th>
@@ -42,12 +67,11 @@ echo BsHtml::pageHeader('Administración','Personas') ?>
 			<th>Email</th>
 			<th>Telefono</th>
 			<th>Usuario</th>
-			<th>Opciones</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php foreach ($model as $usu): ?>
-			<tr <?php if(!$usu->IFUSUARIO)echo 'class="danger"'; ?>>
+			<tr onclick="document.location = '<?php echo Yii::app()->createUrl("persona/view/$usu->PER_CORREL"); ?>';" <?php echo (!$usu->IFUSUARIO)?'class="danger"':'class="success"'; ?>>
 				<td><?php echo $usu->PER_RUT ?></td>
 				<td><?php echo $usu->nombreCompleto ?></td>
 				<td><?php echo $usu->CAR_CORREL ?></td>
@@ -55,61 +79,6 @@ echo BsHtml::pageHeader('Administración','Personas') ?>
 				<td><?php echo $usu->PER_EMAIL ?></td>
 				<td><?php echo $usu->PER_TELEFONO ?></td>
 				<td><?php echo $usu->USUARIO ?></td>
-				<td>
-				  <center>
-					<?php
-						$this->widget('bootstrap.widgets.BsModal', array(
-						    'id' => 'myModal'.$usu->PER_CORREL,
-						    'header' => '¿Seguro que desea eliminar a '.$usu->nombreCompleto." ?",
-						    'content' => 'Sí, desea eliminar a '.$usu->nombreCompleto.', presiona el boton rojo.',
-						    'footer' => array(
-						        BsHtml::linkButton('Eliminar de todas maneras', array(
-						        	'url'=>"deleted/$usu->PER_CORREL",
-						            'color' => BsHtml::BUTTON_COLOR_DANGER
-						        )),
-						        BsHtml::button('cerrar', array(
-						            'data-dismiss' => 'modal'
-						        ))
-						    )
-						));
-					?>
-					 <?php
-						echo BsHtml::buttonDropdown(BsHtml::icon(BsHtml::GLYPHICON_COG), array(
-						    array(
-						        'label' => 'Agregar Usuario',
-						        'url' => array('/usuario/crear/'.$usu->PER_CORREL),
-						        'visible'=>!$usu->IFUSUARIO,
-						    ),
-						    array(
-						        'label' => 'Quitar Usuario',
-						        'url' => array('/usuario/deleted/'.$usu->PER_CORREL),
-						        'visible'=>$usu->IFUSUARIO,
-						    ),
-						    array(
-						        'label' => 'Ver Persona',
-						        'url' => 'view/'.$usu->PER_CORREL
-						    ),
-						    array(
-						        'label' => 'Modificar Persona',
-						        'url' => 'update/'.$usu->PER_CORREL
-						    ),
-						    array(
-						    	'url'=>'#',
-						        'label' => 'Eliminar Persona',
-						        'visible'=>Usuario::model()->permisosAcceso("SUPERADMIN,ADMIN"),
-						        'htmlOptions'=>array(
-						        	'data-toggle'=>"modal",
-						        	'data-target'=>"#myModal".$usu->PER_CORREL
-						        )
-
-						    )
-						), array(
-						    'size' => BsHtml::BUTTON_SIZE_SMALL,
-						    'color' => BsHtml::BUTTON_COLOR_INFO
-						));
-					?>
-				  </center>
-				</td>
 			</tr>
 		<?php endforeach ?>
 	</tbody>

@@ -15,13 +15,9 @@ $this->menu=array(
 );
 ?>
 
-<?php echo BsHtml::pageHeader('Crear','Usuario'); ?>
-<?php
-/* @var $this UsuarioController */
-/* @var $model Usuario */
-/* @var $form BSActiveForm */
-?>
 
+<div class="col-md-6 col-md-offset-3">
+<?php echo BsHtml::pageHeader('Crear','Usuario'); ?>
 <?php $form=$this->beginWidget('bootstrap.widgets.BsActiveForm', array(
     'id'=>'usuario-form',
     'layout' => BsHtml::FORM_LAYOUT_HORIZONTAL,
@@ -43,3 +39,4 @@ $this->menu=array(
     <?php echo BsHtml::formActions(array(BsHtml::submitButton('Crear', array('color' => BsHtml::BUTTON_COLOR_PRIMARY))));?>
 
 <?php $this->endWidget(); ?>
+<div>

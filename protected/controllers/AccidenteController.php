@@ -27,8 +27,8 @@ class AccidenteController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update',('index','view'),
+			array('allow',
+				'actions'=>array('create','update','index','view','ingresarForestal','ingresarIndustrial','CAR_CORREL'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -40,7 +40,50 @@ class AccidenteController extends Controller
 			),
 		);
 	}
+	//Ajax
+	public function actionCAR_CORREL()
+	{
+		$data=Cargo::model()->findAll('ARE_CORREL=:id',array(':id'=>(int) $_POST['Area']['ARE_CORREL']));
+	    $data=CHtml::listData($data,'CAR_CORREL','CAR_NOMBRE');
+	    foreach($data as $value=>$name){
+	        echo CHtml::tag('option',array('value'=>$value),CHtml::encode($name),true);
+	    }
+	}
 
+	public function actionIngresarForestal()
+	{
+		$model=new Accidente;
+
+		if(isset($_POST['Accidente']))
+		{
+			$model->attributes=$_POST['Accidente'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->ACC_CORREL));
+		}
+
+		$this->render('formForestal',array(
+		'model'=>$model,
+		));
+	}
+
+	public function actionIngresarIndustrial()
+	{
+		$model=new Accidente;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Accidente']))
+		{
+			$model->attributes=$_POST['Accidente'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->ACC_CORREL));
+		}
+
+		$this->render('create',array(
+		'model'=>$model,
+		));
+	}
 	/**
 	* Displays a particular model.
 	* @param integer $id the ID of the model to be displayed
