@@ -183,6 +183,7 @@
 	<p class="text-center">
 			Copyright &copy; <?php echo date('Y'); ?> para la Corporporación Chilena de la Madera.<br/>
 			Todos los Derechos Reservados.<br/>
+			Usted a ingresado con el Siguiente Rol : <?php echo Yii::app()->user->name ?>
 	</p>
 	
 </div>

@@ -48,7 +48,6 @@ $cs->registerScript('tablas',"$(document).ready(function(){
         }
 	});
 });');
-//$cs->registerCss("Search-derecha","#table-usuarios_filter {float: right;}");
 
 $this->breadcrumbs=array(
 	'Personas',

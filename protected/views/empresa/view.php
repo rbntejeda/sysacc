@@ -25,11 +25,24 @@ echo BsHtml::pageHeader('Información','Empresa '.$model->EMP_NOMBRE) ?>
 		'EMP_TELEFONO',
 	),
 )); ?>
+
 <?php
-	echo BsHtml::linkButton('Agregar Planta', array(
-		'url'=>array('/planta/crear/'.$model->EMP_CORREL),
-	    'color' => BsHtml::BUTTON_COLOR_PRIMARY));
-?>
+echo BsHtml::buttonGroup(
+	array(
+	    array(
+	        'label' => 'Agregar Planta',
+	        'url' => array('/planta/crear/'.$model->EMP_CORREL),
+	        'type' => BsHtml::BUTTON_TYPE_LINK,
+	        'color' => BsHtml::BUTTON_COLOR_PRIMARY,
+	    ),
+	    array(
+	        'label' => 'Eliminar Empresa',
+	        'url' => array('/Empresa/deleted/'.$model->EMP_CORREL),
+	        'type' => BsHtml::BUTTON_TYPE_LINK,
+	        'color' => BsHtml::BUTTON_COLOR_DANGER,
+	    ),
+	)
+);?>
 <?php if($model->IFPLANTA):?>
 <?php
 		$planta=Planta::model()->findAllByAttributes(array('EMP_CORREL'=>$model->EMP_CORREL));

@@ -1,19 +1,42 @@
 <?php
-/* @var $this UsuarioController */
-/* @var $model Usuario */
-$cs        = Yii::app()->clientScript;
+$cs = Yii::app()->clientScript;
 $baseUrl = Yii::app()->request->baseUrl;
+//Datatables
+$cs->registerCssFile($baseUrl . '/css/jquery.dataTables.css');
 $cs->registerScriptFile($baseUrl . '/js/jquery.dataTables.min.js', CClientScript::POS_END);
+//bootstrap
 $cs->registerScriptFile($baseUrl . '/js/dataTables.bootstrap.js', CClientScript::POS_END);
+//tabletools
+$cs->registerScriptFile($baseUrl . '/js/dataTables.tableTools.js', CClientScript::POS_END);
+$cs->registerCssFile($baseUrl . '/css/dataTables.tableTools.css');
+//Programacion datatables
 $cs->registerScript('tablas',"$(document).ready(function(){
 	$('#table-usuarios').dataTable({".'
+		dom: \'T<"clear">lfrtip\',
+		"tableTools": {
+            "aButtons": [
+                {
+                    "sExtends":    "collection",
+                    "sButtonText": "Guardar",
+                    "aButtons":    
+                    	["xls",                 
+                    	{
+		                    "sExtends": "pdf",
+		                    "sPdfOrientation": "landscape",
+		                    "sPdfMessage": "Usuarios del sistema de accidentabilidad."
+		                },
+		                "csv"]
+                }
+            ],
+            "SRowSelect": "single"
+        },
         "language": {
             "lengthMenu": "Ver _MENU_ registros por pagina.",
             "zeroRecords": "No existes registros.",
             "info": "Mostrar pagina _PAGE_ de _PAGES_",
             "infoEmpty": "No hay registros disponibles.",
 		    "infoFiltered":   "(filtrado por _MAX_ entradas en total.)",
-            "search":         "Buscar:",
+            "search":         "Buscar :",
             "paginate": {
 		        "first":      "Primera",
 		        "last":       "Ultima",
@@ -23,7 +46,6 @@ $cs->registerScript('tablas',"$(document).ready(function(){
         }
 	});
 });');
-$cs->registerCss("Search-derecha","#table-usuarios_filter {float: right;}");
 	
 
 $this->breadcrumbs=array(

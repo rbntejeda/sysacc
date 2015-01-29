@@ -2,6 +2,18 @@
 
 class EstadisticaController extends Controller
 {
+//ajax
+	public function actiongenerarSegEmp()
+	{
+		$this->renderPartial('include/tabla');
+		$this->renderPartial('include/grafico');
+	}
+	public function actionSeg_emp()
+	{
+		$model=new Form;
+		$this->render('seg_emp',array("model"=>$model));
+	}
+
 	public function actionAcc_anu_are_bosque()
 	{
 		$this->render('acc_anu_are_bosque');
@@ -12,10 +24,6 @@ class EstadisticaController extends Controller
 		$this->render('acc_men_emp');
 	}
 
-	public function actionSeg_emp()
-	{
-		$this->render('seg_emp');
-	}
 
 	public function actionSeg_emp_are()
 	{

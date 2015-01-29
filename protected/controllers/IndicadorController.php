@@ -28,7 +28,7 @@ class IndicadorController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','index','view'),
+				'actions'=>array('create','update','index','view','generarSegEmp'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -41,10 +41,12 @@ class IndicadorController extends Controller
 		);
 	}
 
-	/**
-	* Displays a particular model.
-	* @param integer $id the ID of the model to be displayed
-	*/
+//ajax
+	public function actiongenerarSegEmp()
+	{
+		echo "hola";
+	}
+
 	public function actionView($id)
 	{
 		$this->render('view',array(

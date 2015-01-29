@@ -34,6 +34,12 @@ echo BsHtml::buttonGroup(array(
         'color' => BsHtml::BUTTON_COLOR_PRIMARY,
         'visible'=>!$model->IFUSUARIO
     ),
+        array(
+        'label' => 'Editar Usuario',
+        'url' => array('/persona/update/'.$model->PER_CORREL),
+        'type' => BsHtml::BUTTON_TYPE_LINK,
+        'color' => BsHtml::BUTTON_COLOR_PRIMARY,
+    ),
     array(
         'label' => 'Cambiar Contraseña',
         'url' => array('/usuario/update/'.$model->PER_CORREL),
@@ -42,7 +48,7 @@ echo BsHtml::buttonGroup(array(
         'visible'=>$model->IFUSUARIO
     ),
     array(
-        'label' => 'Quitar Persona',
+        'label' => 'Eliminar Usuario',
         'url' => array('/persona/deleted/'.$model->PER_CORREL),
         'type' => BsHtml::BUTTON_TYPE_LINK,
         'color' => BsHtml::BUTTON_COLOR_DANGER,
@@ -55,6 +61,5 @@ echo BsHtml::buttonGroup(array(
         'color' => BsHtml::BUTTON_COLOR_DANGER,
         'visible'=>$model->IFUSUARIO
     ),
-), array(
 ));
 ?>

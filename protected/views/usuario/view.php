@@ -9,15 +9,6 @@ $this->breadcrumbs=array(
 	$model->PER_CORREL,
 );
 
-$this->menu=array(
-    array('icon' => 'glyphicon glyphicon-list','label'=>'List Usuario', 'url'=>array('index')),
-	array('icon' => 'glyphicon glyphicon-plus-sign','label'=>'Create Usuario', 'url'=>array('create')),
-	array('icon' => 'glyphicon glyphicon-edit','label'=>'Update Usuario', 'url'=>array('update', 'id'=>$model->PER_CORREL)),
-	array('icon' => 'glyphicon glyphicon-minus-sign','label'=>'Delete Usuario', 'url'=>'#', 'linkOptions'=>array('submit'=>array('deleted','id'=>$model->PER_CORREL),'confirm'=>'Are you sure you want to delete this item?')),
-    array('icon' => 'glyphicon glyphicon-tasks','label'=>'Manage Usuario', 'url'=>array('admin')),
-);
-?>
-
 <?php echo BsHtml::pageHeader('Ver','Usuario '.$model->PER_NOMBRE) ?>
 
 <?php $this->widget('zii.widgets.CDetailView',array(
